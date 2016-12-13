@@ -1,0 +1,17 @@
+PODS:
+  - KIF (3.5.1):
+    - KIF/Core (= 3.5.1)
+  - KIF/Core (3.5.1)
+  - OEANotification (0.2.0)
+
+DEPENDENCIES:
+  - KIF (~> 3.0)
+  - OEANotification
+
+SPEC CHECKSUMS:
+  KIF: 082eb65279e51c3092923802849eb796a04982ab
+  OEANotification: 7a7cbf6cf365ec11a4bd9b078eb1daa0c1de69c8
+
+PODFILE CHECKSUM: 9638645ca2105a2c2420981cb4688fe6d9a1202e
+
+COCOAPODS: 1.1.1
