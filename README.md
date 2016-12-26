@@ -1,1 +1,2 @@
 # LoginApp
+Demo KIF (UITest)
