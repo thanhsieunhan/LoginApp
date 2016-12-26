@@ -48,15 +48,16 @@ class LoginVC: BaseViewController {
     @IBAction func didTapSignIn(_ sender: AnyObject) {
         // Sign In with credentials.
         /* 1 */
-        if let mUser = emailField.text , let mPass = passwordField.text{
-            if mUser == "" || mPass == "" {
-                OEANotification.notify("Login error", subTitle: "Email or password not empty ", type: .info, isDismissable: true)
-            }else{
-                checkLogin(mUser, password: mPass)
-            }
-            emailField.resignFirstResponder()
-            passwordField.resignFirstResponder()
-        }
+        //        if let mUser = emailField.text , let mPass = passwordField.text{
+        //            if mUser == "" || mPass == "" {
+        //                OEANotification.notify("Login error", subTitle: "Email or password not empty ", type: .info, isDismissable: true)
+        //            }else{
+        //                checkLogin(mUser, password: mPass)
+        //            }
+        //            emailField.resignFirstResponder()
+        //            passwordField.resignFirstResponder()
+        //        }
+        checkLogin()
     }
     @IBAction func resetVC(_ sender: Any) {
         let resetVC = ResetVC(nibName: "ResetVC", bundle: nil)
@@ -66,27 +67,29 @@ class LoginVC: BaseViewController {
     func checkLogin(){
         if let email = emailField.text {
             if let pass = passwordField.text {
-                if email.characters.count > 10 {
+                if email.characters.count >= 10 {
                     if PlistManager.sharedInstance.keyAlreadyExists(email) {
-                        if pass.characters.count > 6 {
+                        if pass.characters.count >= 6 {
                             let infoUser = PlistManager.sharedInstance.getValueForKey(email)
                             if  pass == infoUser?.value(forKey: "pass") as! String {
                                 let listVC = ListVC(nibName: "ListVC", bundle: nil)
                                 listVC.list = list
                                 listVC.nameUserCurrent = email
-                                self.navigationController?.pushViewController(listVC, animated: true)
                                 OEANotification.notify("Login success", subTitle: "Welcome to Manager", type: .info, isDismissable: true)
+                                self.navigationController?.pushViewController(listVC, animated: true)
+                                
                             } else {
                                 //sai pass
-                                 OEANotification.notify("Login error", subTitle: "Password wrong", type: .info, isDismissable: true)
+                                
+                                OEANotification.notify("Login error", subTitle: "Password wrong", type: .warning, isDismissable: true)
                             }
                         } else {
                             //pass khong hop le
-                             OEANotification.notify("Login error", subTitle: "Password error", type: .info, isDismissable: true)
+                            OEANotification.notify("Login error", subTitle: "Password error", type: .warning, isDismissable: true)
                         }
                     } else {
                         // khong ton tai email trong database
-                        OEANotification.notify("Login error", subTitle: "Email not already exists", type: .info, isDismissable: true)
+                        OEANotification.notify("Login error", subTitle: "Email not already exists", type: .warning, isDismissable: true)
                     }
                 } else {
                     // email khong hop le
